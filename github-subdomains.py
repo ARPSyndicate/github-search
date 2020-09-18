@@ -128,7 +128,8 @@ _search = '"' + _domain + '"'
 
 ### this is a test, looks like we got more result that way
 import tldextract
-t_host_parse = tldextract.extract( _domain )
+no_cache_extract = tldextract.TLDExtract(cache_file=False)
+t_host_parse = no_cache_extract(_domain)
 
 if args.extend:
     # which one is
@@ -141,7 +142,7 @@ _search = _search.replace('-','%2D')
 # or simply
 # _search = '"' + _domain + '"'
 # print( t_host_parse )
-# exit()
+# sys.exit()
 ###
 
 # egrep -io "[0-9a-z_\-\.]+\.([0-9a-z_\-]+)?`echo $h|awk -F '.' '{print $(NF-1)}'`([0-9a-z_\-\.]+)?\.[a-z]{1,5}"
@@ -178,7 +179,7 @@ for so in t_sort_order:
                 print(t_json)
             t_tokens.remove(token)
             if len(t_tokens) == 0:
-                exit()
+                sys.exit()
             continue
 
         page = page + 1
@@ -192,4 +193,3 @@ for so in t_sort_order:
             pool.join()
         else:
             break
-
