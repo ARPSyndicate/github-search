@@ -232,7 +232,8 @@ _search = '"' + _domain + '"'
 
 ### this is a test, looks like we got more result that way
 import tldextract
-t_host_parse = tldextract.extract( _domain )
+no_cache_extract = tldextract.TLDExtract(cache_file=False)
+t_host_parse = no_cache_extract(_domain) 
 
 if args.extend:
     # which one is
@@ -244,7 +245,7 @@ else:
 # or simply ?
 # _search = '"' + _domain + '"'
 # print(_search)
-# exit()
+# sys.exit()
 ###
 
 
@@ -282,7 +283,7 @@ for so in t_sort_order:
                 print(t_json)
             t_tokens.remove(token)
             if len(t_tokens) == 0:
-                exit()
+                sys.exit()
             continue
 
         page = page + 1
